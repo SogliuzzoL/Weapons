@@ -38,17 +38,25 @@
     "Percuteur AK": 60000,
     "Canon Glock": 7590,
     "Sélecteur de tir": 12000,
-    "Guidon AK": 80000,
-    "Canon": 5000,
     "Canon à pompe": 135000,
     "Percuteur": 15000,
     "Lampe torche": 3000,
 
     "Système de percussion": 40000,
+    "Canon 9mm": 10000,
+    "Canon standard": 5000,
 
     "Pavot": 0
   },
   "armes": {
+    "Berreta": {
+      "composants": {
+        "Pièce Métallique": 1,
+        "Poignée plasitique": 1,
+        "Ressort": 1,
+        "Canon 9mm": 1
+      }
+    },
     "Glock": {
       "composants": {
         "Pièce Métallique": 1,
@@ -63,7 +71,7 @@
         "Pièce Métallique": 1,
         "Bloc culasse": 1,
         "Système de percussion": 1,
-        "Canon": 1,
+        "Canon standard": 1,
         "Ressort": 1
       }
     },
