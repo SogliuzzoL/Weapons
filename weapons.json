@@ -1,19 +1,77 @@
 {
   "pieces": {
-    "Canon Glock": 7590,
-    "Poignée Plastique": 10000,
-    "Extracteur Renforcé": 9500,
+    "Manche Enroulé": 23400,
+    "Manche en bois": 21000,
+    "Manche Tressé": 18600,
+    "Poignée plasitique": 10000,
+    "Poignée": 30000,
+    "Poignée en bois": 20000,
+    "Poignée en caoutchouc": 30000,
+    "Poignée renforcée": 30200,
+    "Poignée en métal": 15000,
+    "Crosse bois": 60000,
+    "Crosse fer": 371340,
+    "Crosse métallique": 100000,
+    "Support de crosse": 2500,
+    "Lame": 6000,
+    "Lame longue": 5000,
+    "Pièce Métallique": 3750,
+    "Plaque métallique": 1500,
+    "Barre d'acier": 1500,
+    "Acier inox": 1750,
+    "Canon Compact": 3750,
+    "Extracteur renforcé": 9500,
     "Ressort": 3750,
-    "Piece Métalique": 3750
+    "Ressorts renforcés": 10000,
+    "Bloc culasse": 10000,
+    "Vis de fixation": 750,
+    "Barillet": 20000,
+    "Grip antidérapant": 15400,
+    "Crosse": 250000,
+
+    "Chlorure Ammonium": 80,
+    "pince": 100,
+    "Kevlar Moyen 3": 30000,
+    "Submachine Magazine": 4000,
+    "Phenylacetone": 300,
+
+    "Percuteur AK": 60000,
+    "Canon Glock": 7590,
+    "Sélecteur de tir": 12000,
+    "Guidon AK": 80000,
+    "Canon": 5000,
+    "Canon à pompe": 135000,
+    "Percuteur": 15000,
+    "Lampe torche": 3000,
+
+    "Système de percussion": 40000,
+
+    "Pavot": 0
   },
   "armes": {
     "Glock": {
       "composants": {
+        "Pièce Métallique": 1,
+        "Poignée plasitique": 1,
+        "Extracteur renforcé": 1,
         "Canon Glock": 1,
-        "Poignée Plastique": 1,
-        "Extracteur Renforcé": 1,
-        "Ressort": 1,
-        "Piece Métalique": 1
+        "Ressort": 1
+      }
+    },
+    "Tec 9": {
+      "composants": {
+        "Pièce Métallique": 1,
+        "Bloc culasse": 1,
+        "Système de percussion": 1,
+        "Canon": 1,
+        "Ressort": 1
+      }
+    },
+    "Production de Fentanyl": {
+      "composants": {
+        "Pavot": 500,
+        "Chlorure Ammonium": 23,
+        "Phenylacetone": 10
       }
     }
   }
