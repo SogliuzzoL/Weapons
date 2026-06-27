@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur d'Armes GTA RP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background-color: #1a1a1a; color: #f5f5f5; }
+        .card { background-color: #2d2d2d; border: none; color: #fff; }
+        .form-control, .form-select { background-color: #3d3d3d; color: #fff; border: 1px solid #555; }
+        .form-control:focus, .form-select:focus { background-color: #4d4d4d; color: #fff; }
+        .result-box { background-color: #1e3d2f; border-left: 5px solid #198754; }
+        .nav-tabs .nav-link { color: #aaa; border: none; }
+        .nav-tabs .nav-link.active { background-color: #2d2d2d; color: #fff; border: none; font-weight: bold; }
+    </style>
+</head>
+<body class="py-5">
+    <div class="container">
+        <h1 class="text-center mb-5 text-warning">🛠️ Calculateur de Vente - GTA RP</h1>
+        
+        <ul class="nav nav-tabs mb-4" id="calcTabs" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link {% if calc_type == 'weapon' %}active{% endif %}" onclick="changeMode('weapon')">⚔️ Craft d'Arme complet</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link {% if calc_type == 'piece' %}active{% endif %}" onclick="changeMode('piece')">⚙️ Vente de Pièce à l'unité</button>
+            </li>
+        </ul>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card p-4 shadow-lg">
+                    <h3 class="mb-4 text-info">Configuration du Prix</h3>
+                    <form method="POST" id="calc-form">
+                        <input type="hidden" name="calc_type" id="calc_type" value="{{ calc_type }}">
+                        
+                        {% if calc_type == 'weapon' %}
+                        <div class="mb-3">
+                            <label for="weapon" class="form-label">Sélectionner une arme</label>
+                            <select name="weapon" id="weapon" class="form-select" onchange="document.getElementById('calc-form').submit()">
+                                <option value="">-- Choisir une arme --</option>
+                                {% for w_name in weapons.keys() %}
+                                <option value="{{ w_name }}" {% if w_name == selected_weapon %}selected{% endif %}>{{ w_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        {% if selected_weapon %}
+                            <h5 class="mt-4 text-secondary">Ajustement dynamique des prix (Achat Gangs)</h5>
+                            {% for comp_name, qty in weapons[selected_weapon]['composants'].items() %}
+                            <div class="mb-3 row align-items-center">
+                                <label class="col-sm-6 col-form-label text-truncate">
+                                    {{ comp_name }} <span class="badge bg-secondary">x{{ qty }}</span>
+                                </label>
+                                <div class="col-sm-6">
+                                    <div class="input-group">
+                                        <input type="number" step="0.01" class="form-control" 
+                                               name="price_{{ comp_name }}" 
+                                               value="{{ components_dynamic[comp_name]['prix_actuel'] if components_dynamic and comp_name in components_dynamic else prices[comp_name] }}">
+                                        <span class="input-group-text bg-dark text-white">$</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% else %}
+                        <div class="mb-3">
+                            <label for="piece" class="form-label">Sélectionner la pièce à vendre</label>
+                            <select name="piece" id="piece" class="form-select" onchange="document.getElementById('calc-form').submit()">
+                                <option value="">-- Choisir une pièce --</option>
+                                {% for p_name in prices.keys() %}
+                                <option value="{{ p_name }}" {% if p_name == selected_piece %}selected{% endif %}>{{ p_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        {% if selected_piece %}
+                            <div class="mb-3 row align-items-center">
+                                <label class="col-sm-6 col-form-label">Prix d'achat de la pièce</label>
+                                <div class="col-sm-6">
+                                    <div class="input-group">
+                                        <input type="number" step="0.01" class="form-control" 
+                                               name="single_price_{{ selected_piece }}" 
+                                               value="{{ components_dynamic[selected_piece]['prix_actuel'] if components_dynamic else prices[selected_piece] }}">
+                                        <span class="input-group-text bg-dark text-white">$</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row align-items-center">
+                                <label for="piece_qty" class="col-sm-6 col-form-label">Quantité à vendre</label>
+                                <div class="col-sm-6">
+                                    <input type="number" min="1" class="form-control" id="piece_qty" name="piece_qty" value="{{ piece_qty }}">
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% endif %}
+
+                        {% if selected_weapon or selected_piece %}
+                            <div class="mb-4 mt-4">
+                                <label for="margin" class="form-label">Marge souhaitée (%)</label>
+                                <div class="input-group">
+                                    <input type="number" step="0.1" class="form-control" id="margin" name="margin" value="{{ margin_percent }}">
+                                    <span class="input-group-text bg-dark text-white">%</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 fw-bold">Recalculer les bénéfices</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card p-4 shadow-lg h-100">
+                    <h3 class="mb-4 text-success">Résultats financiers</h3>
+                    
+                    {% if (calc_type == 'weapon' and selected_weapon) or (calc_type == 'piece' and selected_piece) %}
+                        <div class="p-3 mb-3 rounded bg-dark border-start border-info border-3">
+                            <span class="text-secondary d-block">Élément analysé</span>
+                            <span class="fs-4 fw-bold text-info">
+                                {{ selected_weapon if calc_type == 'weapon' else selected_piece }}
+                                {% if calc_type == 'piece' %}<span class="fs-6 text-muted">(x{{ piece_qty }})</span>{% endif %}
+                            </span>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-6">
+                                <div class="p-3 rounded bg-dark">
+                                    <span class="text-secondary d-block">Coût total d'obtention</span>
+                                    <span class="fs-4 fw-bold text-danger">{{ cost_price }} $</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-3 rounded bg-dark">
+                                    <span class="text-secondary d-block">Marge appliquée</span>
+                                    <span class="fs-4 fw-bold text-warning">{{ margin_percent }} %</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded result-box shadow-sm text-center">
+                            <span class="text-light d-block uppercase fw-bold mb-1">Prix de vente conseillé</span>
+                            <h2 class="display-5 fw-bold text-light mb-3">{{ selling_price }} $</h2>
+                            <hr class="bg-light">
+                            <span class="text-light opacity-75">Bénéfice net : <strong>+ {{ profit }} $</strong></span>
+                        </div>
+                    {% else %}
+                        <div class="d-flex h-100 align-items-center justify-content-center border border-secondary border-dashed rounded p-5">
+                            <p class="text-muted text-center fs-5">Veuillez sélectionner un élément pour afficher l'analyse des coûts et des marges.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeMode(mode) {
+            document.getElementById('calc_type').value = mode;
+            // On réinitialise les sélections pour éviter les conflits d'affichage
+            const weaponSelect = document.getElementById('weapon');
+            const pieceSelect = document.getElementById('piece');
+            if(weaponSelect) weaponSelect.value = "";
+            if(pieceSelect) pieceSelect.value = "";
+            document.getElementById('calc-form').submit();
+        }
+    </script>
+</body>
+</html>

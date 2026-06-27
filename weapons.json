@@ -1,0 +1,20 @@
+{
+  "pieces": {
+    "Canon Glock": 7590,
+    "Poignée Plastique": 10000,
+    "Extracteur Renforcé": 9500,
+    "Ressort": 3750,
+    "Piece Métalique": 3750
+  },
+  "armes": {
+    "Glock": {
+      "composants": {
+        "Canon Glock": 1,
+        "Poignée Plastique": 1,
+        "Extracteur Renforcé": 1,
+        "Ressort": 1,
+        "Piece Métalique": 1
+      }
+    }
+  }
+}
