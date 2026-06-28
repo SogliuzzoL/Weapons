@@ -21,7 +21,7 @@
         
         <ul class="nav nav-tabs mb-4" id="calcTabs" role="tablist">
             <li class="nav-item">
-                <button class="nav-link {% if calc_type == 'weapon' %}active{% endif %}" onclick="changeMode('weapon')">⚔️ Craft d'Arme complet</button>
+                <button class="nav-link {% if calc_type == 'weapon' %}active{% endif %}" onclick="changeMode('weapon')">⚔️ Craft d'Arme & Prod</button>
             </li>
             <li class="nav-item">
                 <button class="nav-link {% if calc_type == 'piece' %}active{% endif %}" onclick="changeMode('piece')">⚙️ Vente de Pièce à l'unité</button>
@@ -34,12 +34,13 @@
                     <h3 class="mb-4 text-info">Configuration du Prix</h3>
                     <form method="POST" id="calc-form">
                         <input type="hidden" name="calc_type" id="calc_type" value="{{ calc_type }}">
+                        <input type="hidden" name="action_type" id="action_type" value="recalculate">
                         
                         {% if calc_type == 'weapon' %}
                         <div class="mb-3">
-                            <label for="weapon" class="form-label">Sélectionner une arme</label>
-                            <select name="weapon" id="weapon" class="form-select" onchange="document.getElementById('calc-form').submit()">
-                                <option value="">-- Choisir une arme --</option>
+                            <label for="weapon" class="form-label">Sélectionner un élément</label>
+                            <select name="weapon" id="weapon" class="form-select" onchange="triggerWeaponChange()">
+                                <option value="">-- Choisir une arme ou prod --</option>
                                 {% for w_name in weapons.keys() %}
                                 <option value="{{ w_name }}" {% if w_name == selected_weapon %}selected{% endif %}>{{ w_name }}</option>
                                 {% endfor %}
@@ -47,7 +48,21 @@
                         </div>
 
                         {% if selected_weapon %}
-                            <h5 class="mt-4 text-secondary">Ajustement dynamique des prix (Achat Gangs)</h5>
+                            <div class="mb-3 row align-items-center">
+                                <label for="craft_volume" class="col-sm-6 col-form-label text-warning">Volume d'un craft de base</label>
+                                <div class="col-sm-6">
+                                    <input type="number" min="1" class="form-control border-warning" id="craft_volume" name="craft_volume" value="{{ craft_volume }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row align-items-center">
+                                <label for="weapon_qty" class="col-sm-6 col-form-label">Quantité totale à revendre</label>
+                                <div class="col-sm-6">
+                                    <input type="number" min="1" class="form-control" id="weapon_qty" name="weapon_qty" value="{{ weapon_qty }}">
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4 text-secondary">Ajustement du coût des composants (1 craft complet)</h5>
                             {% for comp_name, qty in weapons[selected_weapon]['composants'].items() %}
                             <div class="mb-3 row align-items-center">
                                 <label class="col-sm-6 col-form-label text-truncate">
@@ -121,7 +136,7 @@
                             <span class="text-secondary d-block">Élément analysé</span>
                             <span class="fs-4 fw-bold text-info">
                                 {{ selected_weapon if calc_type == 'weapon' else selected_piece }}
-                                {% if calc_type == 'piece' %}<span class="fs-6 text-muted">(x{{ piece_qty }})</span>{% endif %}
+                                <span class="fs-6 text-muted">(x{{ weapon_qty if calc_type == 'weapon' else piece_qty }})</span>
                             </span>
                         </div>
 
@@ -159,11 +174,16 @@
     <script>
         function changeMode(mode) {
             document.getElementById('calc_type').value = mode;
-            // On réinitialise les sélections pour éviter les conflits d'affichage
             const weaponSelect = document.getElementById('weapon');
             const pieceSelect = document.getElementById('piece');
             if(weaponSelect) weaponSelect.value = "";
             if(pieceSelect) pieceSelect.value = "";
+            document.getElementById('action_type').value = "recalculate";
+            document.getElementById('calc-form').submit();
+        }
+
+        function triggerWeaponChange() {
+            document.getElementById('action_type').value = "weapon_change";
             document.getElementById('calc-form').submit();
         }
     </script>

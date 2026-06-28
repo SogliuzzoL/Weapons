@@ -46,11 +46,12 @@
     "Silencieux": 3000,
 
     "Pavot": 20,
-    "Chlorure Ammonium": 0,
-    "Phenylacetone": 0
+    "Chlorure Ammonium": 1,
+    "Phenylacetone": 1
   },
   "armes": {
     "Beretta": {
+      "volume_base": 1,
       "composants": {
         "Pièce Métallique": 1,
         "Poignée plasitique": 1,
@@ -59,6 +60,7 @@
       }
     },
     "Glock": {
+      "volume_base": 1,
       "composants": {
         "Pièce Métallique": 1,
         "Poignée plasitique": 1,
@@ -68,6 +70,7 @@
       }
     },
     "Tec 9": {
+      "volume_base": 1,
       "composants": {
         "Pièce Métallique": 1,
         "Bloc culasse": 1,
@@ -77,6 +80,7 @@
       }
     },
     "Production de Fentanyl": {
+      "volume_base": 200,
       "composants": {
         "Pavot": 300,
         "Chlorure Ammonium": 250,
