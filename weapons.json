@@ -29,7 +29,6 @@
     "Grip antidérapant": 15400,
     "Crosse": 250000,
 
-    "Chlorure Ammonium": 80,
     "pince": 100,
     "Kevlar Moyen 3": 30000,
     "Submachine Magazine": 4000,
@@ -42,12 +41,13 @@
     "Lampe torche": 3000,
 
     "Système de percussion": 5000,
-    "Canon 9mm": 10000,
-    "Canon standard": 8000,
+    "Canon 9mm": 9000,
+    "Canon standard": 70000,
     "Silencieux": 3000,
 
-    "Pavot": 0,
-    "Phenylacetone": 300
+    "Pavot": 20,
+    "Chlorure Ammonium": 0,
+    "Phenylacetone": 0
   },
   "armes": {
     "Beretta": {
@@ -78,8 +78,8 @@
     },
     "Production de Fentanyl": {
       "composants": {
-        "Pavot": 500,
-        "Chlorure Ammonium": 23,
+        "Pavot": 300,
+        "Chlorure Ammonium": 250,
         "Phenylacetone": 10
       }
     }
