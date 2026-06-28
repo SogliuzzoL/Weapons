@@ -30,7 +30,7 @@ def index():
     
     # Variables de calcul et formulaires
     components_dynamic = {}
-    margin_percent = float(request.form.get('margin', 50))
+    margin_percent = float(request.form.get('margin', 75))
     weapon_qty = int(request.form.get('weapon_qty', 1))
     piece_qty = int(request.form.get('piece_qty', 1))
     
