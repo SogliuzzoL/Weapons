@@ -32,7 +32,6 @@
     "pince": 100,
     "Kevlar Moyen 3": 30000,
     "Submachine Magazine": 4000,
-
     "Percuteur AK": 60000,
     "Canon Glock": 7590,
     "Sélecteur de tir": 12000,
@@ -44,12 +43,53 @@
     "Canon 9mm": 9000,
     "Canon standard": 70000,
     "Silencieux": 3000,
+    "Poignéee SMG": 0,
 
     "Pavot": 20,
     "Chlorure Ammonium": 1,
-    "Phenylacetone": 1
+    "Phenylacetone": 1,
+
+    "Acide sulfurique": 15,
+    "Kevlar Lourd 2": 45000,
+    "Rifle Magazine": 5000,
+    "Essence": 20,
+    "Cylindre": 610390,
+    "Bloc pompe": 15000,
+    "Canon long": 85000,
+    "Verrou de sécurité": 25000,
+    "Poignée polymère": 35000
   },
   "armes": {
+    "Cal 50": {
+      "volume_base": 1,
+      "composants": {
+        "Pièce Métallique": 1,
+        "Poignée en métal": 1,
+        "Bloc culasse": 1,
+        "Percuteur": 1,
+        "Ressorts renforcés": 1,
+        "Ressort": 1
+      }
+    },
+    "Revolver": {
+      "volume_base": 1,
+      "composants": {
+        "Pièce Métallique": 1,
+        "Ressort": 1,
+        "Poignée en caoutchouc": 1,
+        "Sélecteur de tir": 1
+      }
+    },
+    "Uzi": {
+      "volume_base": 1,
+      "composants": {
+        "Pièce Métallique": 1,
+        "Ressort": 1,
+        "Bloc culasse": 1,
+        "Poignéee SMG": 1,
+        "Verrou de sécurité": 1
+      }
+    },
     "Beretta": {
       "volume_base": 1,
       "composants": {
