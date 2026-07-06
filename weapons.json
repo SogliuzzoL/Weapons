@@ -90,6 +90,16 @@
         "Verrou de sécurité": 1
       }
     },
+    "Gusenberg": {
+      "volume_base": 1,
+      "composants": {
+        "Pièce Métallique": 1,
+        "Crosse bois": 1,
+        "Bloc culasse": 1,
+        "Canon long": 1,
+        "Ressort": 1
+      }
+    },
     "Beretta": {
       "volume_base": 1,
       "composants": {
