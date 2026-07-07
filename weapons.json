@@ -57,7 +57,9 @@
     "Bloc pompe": 15000,
     "Canon long": 85000,
     "Verrou de sécurité": 25000,
-    "Poignée polymère": 35000
+    "Poignée polymère": 35000,
+
+    "Feuilles de coca": 1
   },
   "armes": {
     "Cal 50": {
@@ -98,6 +100,14 @@
         "Bloc culasse": 1,
         "Canon long": 1,
         "Ressort": 1
+      }
+    },,
+    "Production de Cocaïne": {
+      "volume_base": 330,
+      "composants": {
+        "Feuilles de coca": 500,
+        "Essence": 1,
+        "Acide sulfurique": 150
       }
     },
     "Beretta": {
